@@ -1,11 +1,11 @@
-package com.idat.SetiembreIIIE.repository;
+package com.idat.SetiembreIIIE.service;
 
 import java.util.List;
 
 import com.idat.SetiembreIIIE.model.Producto;
 
-public interface ProductoRepository {
-	
+public interface ProductoService {
+
 	void save(Producto p);
 
 	void update(Producto p);
@@ -15,7 +15,5 @@ public interface ProductoRepository {
 	List<Producto> get();
 
 	Producto getId(Integer id);
-	
-	
 
 }

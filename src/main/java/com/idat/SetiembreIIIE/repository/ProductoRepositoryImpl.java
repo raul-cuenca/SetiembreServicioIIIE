@@ -3,11 +3,11 @@ package com.idat.SetiembreIIIE.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import com.idat.SetiembreIIIE.model.Producto;
 
-@Service
+@Repository
 public class ProductoRepositoryImpl implements ProductoRepository {
 
 	List<Producto> almacenamiento = new ArrayList<>();
@@ -15,25 +15,20 @@ public class ProductoRepositoryImpl implements ProductoRepository {
 	@Override
 	public void save(Producto p) {
 		almacenamiento.add(p);
-
 	}
 
 	@Override
 	public void update(Producto p) {
-		
-		Producto existsUpdate = getId(p.getIdProducto());
-		
-		delete(p.getIdProducto());
-		almacenamiento.add(existsUpdate);
-		
 
+		Producto existsUpdate = getId(p.getIdProducto());
+		delete(existsUpdate.getIdProducto());
+		almacenamiento.add(p);
 	}
 
 	@Override
 	public void delete(Integer id) {
 		Producto existsDelete = getId(id);
 		almacenamiento.remove(existsDelete);
-
 	}
 
 	@Override
@@ -44,17 +39,8 @@ public class ProductoRepositoryImpl implements ProductoRepository {
 
 	@Override
 	public Producto getId(Integer id) {
-		
-//		modo convencional
-//		for (Producto producto : almacenamiento) {
-//			if (producto.getIdProducto() == id) {
-//				return producto;
-//			}
-//		}
-//		return null;
 
 		// flujos -> solo en listas
-
 		return almacenamiento.stream().filter(p -> p.getIdProducto() == id).findFirst().orElse(null);
 
 	}
