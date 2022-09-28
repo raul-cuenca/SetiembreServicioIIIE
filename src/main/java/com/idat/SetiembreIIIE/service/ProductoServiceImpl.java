@@ -21,22 +21,22 @@ public class ProductoServiceImpl implements ProductoService {
 
 	@Override
 	public void update(Producto p) {
-		almacenamiento.update(p);
+		almacenamiento.saveAndFlush(p);
 	}
 
 	@Override
 	public void delete(Integer id) {
-		almacenamiento.delete(id);
+		almacenamiento.deleteById(id);
 	}
 
 	@Override
 	public List<Producto> get() {
-		return almacenamiento.get();
+		return almacenamiento.findAll();
 	}
 
 	@Override
 	public Producto getId(Integer id) {
-		return almacenamiento.getId(id);
+		return almacenamiento.findById(id).orElse(null);
 
 	}
 
