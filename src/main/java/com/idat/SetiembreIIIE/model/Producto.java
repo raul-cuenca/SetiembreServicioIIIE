@@ -34,6 +34,7 @@ public class Producto {
 	@OneToOne
 	private Proveedor proveedor;
 
+	//tabla nueva generada de muchos a muchos con cliente
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinTable(
 			name = "t_producto_cliente", 

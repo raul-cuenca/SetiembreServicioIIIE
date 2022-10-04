@@ -22,6 +22,7 @@ public class Cliente {
 	private String cliente;
 	private String celular;
 
+	//relacion de muchos a muchos con tabla clientes
 	@ManyToMany(mappedBy = "clientes", cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Producto> productos = new ArrayList<>();
 
