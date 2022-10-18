@@ -11,48 +11,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.idat.SetiembreIIIE.model.Producto;
-import com.idat.SetiembreIIIE.service.ProductoService;
+import com.idat.SetiembreIIIE.model.Item;
+import com.idat.SetiembreIIIE.service.ItemService;
 
 @RestController
-@RequestMapping("/producto/v1")
-public class ProductoController {
+@RequestMapping("/item/v1")
+public class ItemController {
 
 	@Autowired
-	private ProductoService service;
+	private ItemService service;
 
 	@RequestMapping(path = "/listar", method = RequestMethod.GET)
-	public ResponseEntity<List<Producto>> get() {
-
-		return new ResponseEntity<List<Producto>>(service.get(), HttpStatus.OK);
+	public ResponseEntity<List<Item>> get() {
+		
+		return new ResponseEntity<List<Item>>(service.get(), HttpStatus.OK);
 	}
 
 	@RequestMapping(path = "/guardar", method = RequestMethod.POST)
-	public ResponseEntity<Void> save(@RequestBody Producto producto) {
+	public ResponseEntity<Void> save(@RequestBody Item item) {
 
-		service.save(producto);
+		service.save(item);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
 	@RequestMapping(path = "/listar/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Producto> getId(@PathVariable Integer id) {
+	public ResponseEntity<Item> getId(@PathVariable Integer id) {
 
-		Producto producto = service.getId(id);
-		if (producto != null) {
-			return new ResponseEntity<Producto>(producto, HttpStatus.OK);
+		Item objItem = service.getId(id);
+
+		if (objItem != null) {
+			return new ResponseEntity<Item>(objItem, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Producto>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Item>(HttpStatus.NOT_FOUND);
 		}
-
 	}
 
 	@RequestMapping(path = "/actualizar", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Producto producto) {
+	public ResponseEntity<Void> update(@RequestBody Item item) {
 
-		Producto objProducto = service.getId(producto.getIdProducto());
+		Item objItem = service.getId(item.getIdItem());
 
-		if (objProducto != null) {
-			service.update(producto);
+		if (objItem != null) {
+			service.save(item);
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
@@ -62,8 +62,9 @@ public class ProductoController {
 	@RequestMapping(path = "/eliminar/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 
-		Producto objProducto = service.getId(id);
-		if (objProducto != null) {
+		Item objItem = service.getId(id);
+
+		if (objItem != null) {
 			service.delete(id);
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} else {
